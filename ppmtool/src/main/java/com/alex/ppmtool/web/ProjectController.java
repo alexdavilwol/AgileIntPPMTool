@@ -1,6 +1,7 @@
 package com.alex.ppmtool.web;
 
 import com.alex.ppmtool.domain.Project;
+import com.alex.ppmtool.services.MapValidationErrorService;
 import com.alex.ppmtool.services.ProjectService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +27,16 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private MapValidationErrorService mapValidationErrorService;
+
     //map to create a new project and give an http service update thatll tell
     // whether or not creation was successful
     @PostMapping("")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result){
 
-        //using result field errors to return the list of errors with its corresponding field
-        //from bindingresult
-        if(result.hasErrors()){
-            Map<String, String> errorMap = new HashMap<>();
-
-            for(FieldError error: result.getFieldErrors()){
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
-        }
-
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap != null) return errorMap;
 
         Project project1 = projectService.saveOrUpdateProject(project);
         return new ResponseEntity<Project>(project1, HttpStatus.CREATED);
