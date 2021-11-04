@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProject } from "../../actions/projectActions";
-import classNames from "classnames";
+import classnames from "classnames";
 
 class AddProject extends Component {
   constructor() {
@@ -41,7 +41,6 @@ class AddProject extends Component {
       start_date: this.state.start_date,
       end_date: this.state.end_date,
     };
-
     this.props.createProject(newProject, this.props.history);
   }
 
@@ -60,7 +59,7 @@ class AddProject extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classNames("form-control form-control-lg", {
+                      className={classnames("form-control form-control-lg", {
                         "is-invalid": errors.projectName,
                       })}
                       placeholder="Project Name"
@@ -77,7 +76,7 @@ class AddProject extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classNames("form-control form-control-lg", {
+                      className={classnames("form-control form-control-lg", {
                         "is-invalid": errors.projectIdentifier,
                       })}
                       placeholder="Unique Project ID"
@@ -93,7 +92,7 @@ class AddProject extends Component {
                   </div>
                   <div className="form-group">
                     <textarea
-                      className={classNames("form-control form-control-lg", {
+                      className={classnames("form-control form-control-lg", {
                         "is-invalid": errors.description,
                       })}
                       placeholder="Project Description"
