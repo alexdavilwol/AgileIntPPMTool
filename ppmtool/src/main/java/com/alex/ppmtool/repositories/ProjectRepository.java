@@ -4,7 +4,8 @@ import com.alex.ppmtool.domain.Project;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+//@Repository
+//no need for repository annotaion bc we are already extending crudrepository (for this case)
 public interface ProjectRepository extends CrudRepository<Project, Long> {
 
     Project findByProjectIdentifier(String projectId);

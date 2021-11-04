@@ -18,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/project")
+@CrossOrigin
 public class ProjectController {
 
     //inject ProjectService object to use the services (includes updating/save/ creating new project, etc.
@@ -30,6 +31,7 @@ public class ProjectController {
     //map to create a new project and give an http service update thatll tell
     // whether or not creation was successful
     @PostMapping("")
+    //returns httpstatus
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result){
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
@@ -53,8 +55,8 @@ public class ProjectController {
         return projectService.findAllProjects();
     }
 
-    @DeleteMapping("/{projectId}")
-    public ResponseEntity<?> deleteProject(@PathVariable String projectId){
+    @DeleteMapping("/{projId}")
+    public ResponseEntity<?> deleteProject(@PathVariable ("projId")String projectId){
         projectService.deleteProjectByIdentifier(projectId);
 
         return new ResponseEntity<String>("Project with ID: '"+projectId+"' was deleted", HttpStatus.OK);
