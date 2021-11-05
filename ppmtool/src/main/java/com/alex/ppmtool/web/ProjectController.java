@@ -31,7 +31,6 @@ public class ProjectController {
     //map to create a new project and give an http service update thatll tell
     // whether or not creation was successful
     @PostMapping("")
-    //returns httpstatus
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result){
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
