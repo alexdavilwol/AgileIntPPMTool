@@ -1,12 +1,18 @@
 package com.alex.ppmtool.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProjectTask {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -19,6 +25,8 @@ public class ProjectTask {
     private String status;
     private Integer priority;
     private Date dueDate;
+
+    //projectsequence projectIdentifier + task counter
 
     //many to one with the backlog
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
@@ -33,96 +41,7 @@ public class ProjectTask {
     private Date created_At;
     private Date updated_At;
 
-    public ProjectTask() {
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getProjectSequence() {
-        return projectSequence;
-    }
-
-    public void setProjectSequence(String projectSequence) {
-        this.projectSequence = projectSequence;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getAcceptanceCriteria() {
-        return acceptanceCriteria;
-    }
-
-    public void setAcceptanceCriteria(String acceptanceCriteria) {
-        this.acceptanceCriteria = acceptanceCriteria;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public String getProjectIdentifier() {
-        return projectIdentifier;
-    }
-
-    public void setProjectIdentifier(String projectIdentifier) {
-        this.projectIdentifier = projectIdentifier;
-    }
-
-    public Date getCreated_At() {
-        return created_At;
-    }
-
-    public void setCreated_At(Date created_At) {
-        this.created_At = created_At;
-    }
-
-    public Date getUpdated_At() {
-        return updated_At;
-    }
-
-    public void setUpdated_At(Date updated_At) {
-        this.updated_At = updated_At;
-    }
-
-    public Backlog getBacklog() {
-        return backlog;
-    }
-
-    public void setBacklog(Backlog backlog) {
-        this.backlog = backlog;
-    }
 
     @PrePersist
     protected void onCreate(){
