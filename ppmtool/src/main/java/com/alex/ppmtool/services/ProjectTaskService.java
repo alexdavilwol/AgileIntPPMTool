@@ -7,6 +7,9 @@ import com.alex.ppmtool.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Locale;
+
 @Service
 public class ProjectTaskService {
 
@@ -21,7 +24,7 @@ public class ProjectTaskService {
 
         //Project Tasks (PTs) to be added to a specific existing project,
         // project != null then backlog exists
-        Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
+        Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
 
         //set backlog to project task
         projectTask.setBacklog(backlog);
@@ -48,5 +51,9 @@ public class ProjectTaskService {
 
         return projectTaskRepository.save(projectTask);
 
+    }
+
+    public Iterable<ProjectTask> findBacklogById(String id) {
+        return projectTaskRepository.findByProjectIdentifierOrderByPriority(id);
     }
 }
