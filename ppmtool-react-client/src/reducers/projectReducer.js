@@ -9,6 +9,7 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case GET_PROJECTS:
       return {
+        // '...' is javascript for += and it turns it into an array
         ...state,
         projects: action.payload,
       };
