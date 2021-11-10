@@ -21,6 +21,7 @@ export const addProjectTask =
 export const getBacklog = (backlog_id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/backlog/${backlog_id}`);
+    console.log("this is getbacklog");
     dispatch({
       type: GET_BACKLOG,
       payload: res.data,
