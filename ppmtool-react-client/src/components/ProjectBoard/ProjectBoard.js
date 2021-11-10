@@ -7,7 +7,7 @@ import { getBacklog } from "../../actions/backlogActions";
 
 class ProjectBoard extends Component {
   //constructor for errors
-  componenetDidMount() {
+  componentDidMount() {
     const { id } = this.props.match.params;
     this.props.getBacklog(id);
     //console.log(this.props);
