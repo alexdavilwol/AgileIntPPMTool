@@ -67,7 +67,7 @@ public class ProjectService {
 
         //Only want to return the project if the user looking for it is the owner
 
-        Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+        Project project = projectRepository.findByProjectIdentifier(projectId); //.toUpperCase()
 
         if(project == null) {
             throw new ProjectIdException("Project Id '" + projectId+ "' does not exist.");
