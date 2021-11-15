@@ -25,12 +25,16 @@ public class ProjectTaskService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask){
+    @Autowired
+    private ProjectService projectService;
+
+    public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask, String username){
         //Exceptions: Project is not found
-        try{
+
             //Project Tasks (PTs) to be added to a specific existing project,
             // project != null then backlog exists
-            Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
+            Backlog backlog =projectService.findProjectByIdentifier(projectIdentifier, username).getBackLog();
+                    //backlogRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
 
             //set backlog to project task
             projectTask.setBacklog(backlog);
@@ -56,15 +60,13 @@ public class ProjectTaskService {
             }
 
             return projectTaskRepository.save(projectTask);
-        }catch(Exception e){
-            throw new ProjectNotFoundException("Project not found");
-        }
+
 
     }
 
-    public Iterable<ProjectTask> findBacklogById(String id) {
+    public Iterable<ProjectTask> findBacklogById(String id, String username) {
 
-        Project project = projectRepository.findByProjectIdentifier(id);
+        Project project = projectService.findProjectByIdentifier(id, username);
 
         if(project==null){
             throw new ProjectNotFoundException("Project with ID: '"+id+"' does not exist");
