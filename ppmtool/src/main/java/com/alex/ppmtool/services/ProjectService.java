@@ -2,9 +2,11 @@ package com.alex.ppmtool.services;
 
 import com.alex.ppmtool.domain.Backlog;
 import com.alex.ppmtool.domain.Project;
+import com.alex.ppmtool.domain.User;
 import com.alex.ppmtool.exceptions.ProjectIdException;
 import com.alex.ppmtool.repositories.BacklogRepository;
 import com.alex.ppmtool.repositories.ProjectRepository;
+import com.alex.ppmtool.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,18 @@ public class ProjectService {
     @Autowired
     private BacklogRepository backlogRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     //this will pass in a project object and save it on the database
-    public Project saveOrUpdateProject(Project project){
+    public Project saveOrUpdateProject(Project project, String username){
         //Logic
         try{
+            User user = userRepository.findByUsername(username);
+
+            project.setUser(user);
+            project.setProjectLeader(user.getUsername()); //could use the username param above
+
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 
             if(project.getId()==null){

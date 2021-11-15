@@ -44,7 +44,12 @@ public class Project {
     @JsonIgnore
     private Backlog backLog;
 
+    //Many to One (projects to user)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
 
+    private String projectLeader;
 
     @PrePersist
     protected void onCreate() {
