@@ -32,7 +32,6 @@ export const login = (LoginRequest) => async (dispatch) => {
     // decode token on react end
     const decoded = jwt_decode(token);
     // dispatch to security reducer
-
     dispatch({
       type: SET_CURRENT_USER,
       payload: decoded,
@@ -43,4 +42,13 @@ export const login = (LoginRequest) => async (dispatch) => {
       payload: err.response.data,
     });
   }
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem("jwtToken");
+  setJWTToken(false);
+  dispatch({
+    type: SET_CURRENT_USER,
+    payload: {},
+  });
 };
